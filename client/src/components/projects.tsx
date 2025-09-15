@@ -8,32 +8,60 @@ export default function Projects() {
 
   const projects = [
     {
-      title: "E-commerce API Platform",
+      title: "Real-time Production Monitoring System",
       description:
-        "Scalable FastAPI-based e-commerce backend handling 10K+ daily orders. Features include inventory management, payment processing, and real-time notifications.",
-      image:
-        "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300",
-      technologies: ["FastAPI", "PostgreSQL", "Redis", "Docker"],
-      github: "https://github.com/alexmorgan/ecommerce-api",
-      demo: "#",
-    },
-    {
-      title: "Real-time Analytics Engine",
-      description:
-        "High-performance data processing pipeline built with Node.js and Elasticsearch. Processes 1M+ events per hour with sub-second query response times.",
+        "A Real-time Production Monitoring System is a software platform designed to track, analyze, and visualize production processes as they happen. It collects live data from machines, sensors, and operators across the factory floor, providing instant insights into key metrics such as production rate, machine uptime, downtime, cycle times, and overall equipment effectiveness (OEE).",
       image:
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300",
-      technologies: ["Node.js", "Elasticsearch", "Apache Kafka", "AWS"],
+      technologies: [
+        "Java",
+        "Apache Kafka",
+        "KStream",
+        "MongoDB",
+        "TDEngine",
+        "Redis",
+        "Elasticsearch",
+        "AWS",
+      ],
       github: "https://github.com/alexmorgan/analytics-engine",
       demo: "#",
     },
     {
-      title: "Microservices Chat Platform",
+      title: "Production Data Lake & KPI Warehouse",
       description:
-        "Distributed chat system with separate services for users, messages, and notifications. Built with Python microservices and WebSocket real-time communication.",
+        "A Production Data Lake & KPI Warehouse is a cloud-native system that ingests raw machine sensor data into a centralized storage, processes it into structured, shift-wise and day-wise KPIs, and enables analytics across production lines. It supports efficient querying, aggregation, and reporting, allowing manufacturers to monitor operational performance, identify trends, and make data-driven decisions that improve throughput, reduce downtime, and optimize resource utilization.",
+      image:
+        "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300",
+      technologies: [
+        "PySpark",
+        "PostgreSQL",
+        "ClickHouse",
+        "AWS",
+        "S3",
+        "EC2",
+        "Lambda",
+        "Athena",
+        "Docker",
+        "Apache Superset",
+      ],
+      github: "https://github.com/alexmorgan/ecommerce-api",
+      demo: "#",
+    },
+    {
+      title: "AI-Driven Predictive Maintenance System",
+      description:
+        "An AI-Driven Predictive Maintenance System leverages machine sensor data and historical performance to detect anomalies and forecast potential equipment failures. It applies machine learning models to analyze time-series data, providing actionable insights to schedule maintenance proactively. By reducing unplanned downtime, extending machine life, and improving overall equipment efficiency, the system enables manufacturers to optimize operations, enhance reliability, and make strategic maintenance decisions",
       image:
         "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300",
-      technologies: ["Python", "WebSockets", "MongoDB", "Kubernetes"],
+      technologies: [
+        "Python",
+        "Pandas",
+        "Scikit-learn",
+        "XGBoost",
+        "PyTorch",
+        "MLflow",
+        "Matplotlib/Plotly",
+      ],
       github: "https://github.com/alexmorgan/chat-microservices",
       demo: "#",
     },
@@ -53,6 +81,21 @@ export default function Projects() {
       WebSockets: "bg-purple-100 text-purple-700",
       MongoDB: "bg-green-100 text-green-700",
       Kubernetes: "bg-orange-100 text-orange-700",
+      Java: "bg-orange-100 text-orange-700",
+      KStream: "bg-red-100 text-red-700",
+      TDEngine: "bg-green-100 text-green-700",
+      PySpark: "bg-red-100 text-red-700",
+      ClickHouse: "bg-green-100 text-green-700",
+      S3: "bg-blue-100 text-blue-700",
+      EC2: "bg-blue-100 text-blue-700",
+      Lambda: "bg-yellow-100 text-yellow-700",
+      Athena: "bg-orange-100 text-orange-700",
+      "Apache Superset": "bg-red-100 text-red-700",
+      "Scikit-learn": "bg-blue-100 text-blue-700",
+      XGBoost: "bg-orange-100 text-orange-700",
+      PyTorch: "bg-green-100 text-green-700",
+      MLflow: "bg-green-100 text-green-700",
+      "Matplotlib/Plotly": "bg-red-100 text-red-700",
     };
     return colors[tech] || "bg-gray-100 text-gray-700";
   };
@@ -97,7 +140,7 @@ export default function Projects() {
                     </Badge>
                   ))}
                 </div>
-                <div className="flex gap-3">
+                {/* <div className="flex gap-3">
                   <a
                     href={project.github}
                     className="flex items-center text-slate-600 hover:text-primary transition-colors"
@@ -114,7 +157,7 @@ export default function Projects() {
                     <ExternalLink className="w-4 h-4 mr-1" />
                     Demo
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}

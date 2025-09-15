@@ -118,9 +118,10 @@ export default function Resume() {
                   Professional Experience
                 </h3>
                 <p className="text-slate-600 mb-6">
-                  5+ years of backend development experience across fintech,
-                  e-commerce, and SaaS platforms. Proven track record of
-                  building systems that scale to millions of users.
+                  Backend developer with 4+ years of experience in IoT, data
+                  platforms, and e-commerce, passionate about designing scalable
+                  architectures, optimizing databases, and creating
+                  high-performance systems for modern applications.
                 </p>
 
                 <div className="space-y-4 mb-8">

@@ -54,962 +54,6 @@ const projectCategories: Record<
     concepts: Concept[];
   }
 > = {
-  "system-design": {
-    title: "System Design",
-    icon: Network,
-    description: "Large-scale distributed systems and architecture patterns",
-    concepts: [
-      {
-        name: "Load Balancing",
-        description:
-          "Horizontal scaling with Nginx and HAProxy implementations",
-        difficulty: "Intermediate",
-        topics: [
-          "Round Robin",
-          "Weighted Routing",
-          "Health Checks",
-          "Session Persistence",
-        ],
-      },
-      {
-        name: "Database Sharding",
-        description: "Partitioning strategies for PostgreSQL at scale",
-        difficulty: "Advanced",
-        topics: [
-          "Horizontal Partitioning",
-          "Consistent Hashing",
-          "Cross-shard Queries",
-          "Rebalancing",
-        ],
-      },
-      {
-        name: "Microservices Architecture",
-        description: "Service decomposition and communication patterns",
-        difficulty: "Advanced",
-        topics: [
-          "Service Discovery",
-          "Circuit Breaker",
-          "Event Sourcing",
-          "SAGA Pattern",
-        ],
-      },
-      {
-        name: "Caching Strategies",
-        description: "Redis and Memcached implementation patterns",
-        difficulty: "Intermediate",
-        topics: [
-          "Cache-aside",
-          "Write-through",
-          "Write-behind",
-          "Cache Invalidation",
-        ],
-      },
-    ],
-  },
-  linux: {
-    title: "Linux & DevOps",
-    icon: Monitor,
-    description: "System administration and infrastructure automation",
-    concepts: [
-      {
-        name: "Process Management",
-        description:
-          "Understanding, controlling, and monitoring Linux system processes.",
-        difficulty: "Beginner",
-        topics: [
-          "Foreground/Background",
-          "Signals",
-          "Systemd",
-          "Monitoring Tools",
-        ],
-        details: {
-          overview:
-            "Process management in Linux involves handling the lifecycle of system processes — from creation and execution to termination. It also includes monitoring, signaling, and configuring services using tools like `ps`, `top`, and `systemctl`.",
-          timeComplexity:
-            "O(1) for signaling; O(n) for scanning all processes (e.g., ps/top)",
-          spaceComplexity:
-            "Depends on number of active processes; typically O(n)",
-          keyTechniques: [
-            {
-              name: "Listing and Managing Processes",
-              explanation:
-                "Use commands like `ps`, `top`, and `htop` to list active processes. Combine with `grep`, `sort`, and `kill` to filter and manage them.",
-              codeExample: `ps aux | grep python
-      kill -9 <PID>
-      top`,
-              useCases: [
-                {
-                  useCase: "Find running process by name",
-                  link: "https://linux.die.net/man/1/ps",
-                },
-                {
-                  useCase: "Kill a stuck or zombie process",
-                  link: "https://linuxize.com/post/how-to-kill-a-process-in-linux/",
-                },
-                {
-                  useCase: "Live monitoring of CPU/memory usage",
-                  link: "https://linux.die.net/man/1/top",
-                },
-              ],
-            },
-            {
-              name: "Background & Foreground Jobs",
-              explanation:
-                "Run commands in the background using `&`. Use `jobs`, `fg`, `bg`, and `kill` to manage job states.",
-              codeExample: `sleep 60 &
-      jobs
-      fg %1`,
-              useCases: [
-                {
-                  useCase: "Run long tasks in background",
-                  link: "https://www.geeksforgeeks.org/run-processes-in-background-linux/",
-                },
-                {
-                  useCase: "Bring background job to foreground",
-                  link: "https://linuxize.com/post/how-to-use-fg-command-in-linux/",
-                },
-                {
-                  useCase: "List all active jobs",
-                  link: "https://www.baeldung.com/linux/jobs-command",
-                },
-              ],
-            },
-            {
-              name: "Service Management with systemd",
-              explanation:
-                "Use `systemctl` to manage system services (start, stop, enable, disable) and inspect logs.",
-              codeExample: `systemctl start nginx
-      systemctl status nginx
-      journalctl -u nginx`,
-              useCases: [
-                {
-                  useCase: "Start or restart a service",
-                  link: "https://www.digitalocean.com/community/tutorials/systemctl-essential-commands",
-                },
-                {
-                  useCase: "Enable service on boot",
-                  link: "https://www.cyberciti.biz/faq/how-to-enable-disable-services-in-linux/",
-                },
-                {
-                  useCase: "Check service logs",
-                  link: "https://www.freedesktop.org/software/systemd/man/journalctl.html",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "Kill process using PID",
-              link: "https://www.geeksforgeeks.org/how-to-kill-a-process-in-linux/",
-            },
-            {
-              name: "List top CPU-consuming processes",
-              link: "https://www.howtogeek.com/668986/how-to-use-the-top-command-on-linux/",
-            },
-            {
-              name: "Restart a systemd service",
-              link: "https://www.tecmint.com/manage-systemd-services-using-systemctl-in-linux/",
-            },
-          ],
-        },
-      },
-
-      {
-        name: "File System & Permissions",
-        description:
-          "Understand Linux directory structure and manage access using permissions.",
-        difficulty: "Beginner",
-        topics: ["/bin", "/etc", "/home", "chmod", "chown", "umask"],
-        details: {
-          overview:
-            "The Linux file system is a hierarchical structure starting at the root `/`, organizing everything into directories. File permissions and ownership determine who can read, write, or execute a file or directory, critical for system security and stability.",
-          timeComplexity:
-            "O(1) for permission changes, O(n) for recursive operations",
-          spaceComplexity:
-            "Negligible unless processing deeply nested directories",
-          keyTechniques: [
-            {
-              name: "Understanding Linux File System Structure",
-              explanation:
-                "Familiar directories include `/bin` for binaries, `/etc` for configurations, `/home` for user data, `/var` for logs, and `/tmp` for temporary files. Each serves a distinct system role.",
-              codeExample: `ls /
-      cd /etc
-      ls -l /home`,
-              useCases: [
-                {
-                  useCase: "Locate config files",
-                  link: "https://www.geeksforgeeks.org/etc-directory-in-linux/",
-                },
-                {
-                  useCase: "Check user directories",
-                  link: "https://www.baeldung.com/linux/home-directory",
-                },
-                {
-                  useCase: "Access executable programs",
-                  link: "https://linuxhandbook.com/bin-directory/",
-                },
-              ],
-            },
-            {
-              name: "File Permissions with chmod",
-              explanation:
-                "Permissions are divided into user, group, and others. Use `chmod` to set read (r), write (w), and execute (x) permissions.",
-              codeExample: `chmod 755 script.sh
-      chmod u+x script.sh
-      chmod -R 644 /var/www`,
-              useCases: [
-                {
-                  useCase: "Make script executable",
-                  link: "https://www.geeksforgeeks.org/chmod-command-linux-example/",
-                },
-                {
-                  useCase: "Restrict access to group/others",
-                  link: "https://linuxize.com/post/linux-file-permissions/",
-                },
-                {
-                  useCase: "Change permissions recursively",
-                  link: "https://www.cyberciti.biz/faq/linux-recursively-change-file-permissions/",
-                },
-              ],
-            },
-            {
-              name: "Ownership Management with chown",
-              explanation:
-                "Each file/directory is owned by a user and a group. Use `chown` to change ownership and `chgrp` to change group.",
-              codeExample: `chown user:group file.txt
-      chown -R ubuntu:www-data /var/www`,
-              useCases: [
-                {
-                  useCase: "Set ownership after file transfer",
-                  link: "https://www.geeksforgeeks.org/chown-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Fix web server file permissions",
-                  link: "https://linuxize.com/post/linux-chown-command/",
-                },
-                {
-                  useCase: "Assign group ownership",
-                  link: "https://www.baeldung.com/linux/chgrp-command",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "Permission denied error fix",
-              link: "https://phoenixnap.com/kb/linux-file-permissions",
-            },
-            {
-              name: "Make file executable",
-              link: "https://linuxize.com/post/how-to-make-a-file-executable-in-linux/",
-            },
-            {
-              name: "Change file owner and group",
-              link: "https://www.geeksforgeeks.org/chown-command-in-linux-with-examples/",
-            },
-          ],
-        },
-      },
-      {
-        name: "Networking",
-        description:
-          "Understanding core networking tools and communication in Linux.",
-        difficulty: "Beginner",
-        topics: ["IP", "DNS", "Ping", "Netstat", "Curl", "SSH", "Ports"],
-        details: {
-          overview:
-            "Linux networking enables communication between systems and services. Core tools help diagnose, configure, and troubleshoot network connectivity, making networking essential for servers, DevOps, and backend systems.",
-          timeComplexity:
-            "Most networking tools operate in O(1) or O(n) where n = number of connections/interfaces",
-          spaceComplexity: "Negligible for typical diagnostic commands",
-          keyTechniques: [
-            {
-              name: "Check IP and Network Interfaces",
-              explanation:
-                "Use `ip` or `ifconfig` to list active network interfaces, IP addresses, and connection status.",
-              codeExample: `ip a
-      ifconfig
-      ip route show`,
-              useCases: [
-                {
-                  useCase: "Find local IP address",
-                  link: "https://www.cyberciti.biz/faq/how-to-find-ip-address-in-linux/",
-                },
-                {
-                  useCase: "Debug routing issues",
-                  link: "https://linuxize.com/post/ip-command-examples/",
-                },
-                {
-                  useCase: "List all network interfaces",
-                  link: "https://www.geeksforgeeks.org/ifconfig-command-in-linux-with-examples/",
-                },
-              ],
-            },
-            {
-              name: "DNS & Connectivity Checks",
-              explanation:
-                "Use `ping`, `dig`, and `nslookup` to check if hosts are reachable and resolve DNS names to IP addresses.",
-              codeExample: `ping google.com
-      dig openai.com
-      nslookup github.com`,
-              useCases: [
-                {
-                  useCase: "Check server reachability",
-                  link: "https://www.geeksforgeeks.org/ping-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Debug DNS resolution",
-                  link: "https://linuxize.com/post/dig-command-in-linux/",
-                },
-                {
-                  useCase: "Check DNS records",
-                  link: "https://www.geeksforgeeks.org/nslookup-command-in-linux-with-examples/",
-                },
-              ],
-            },
-            {
-              name: "Network Connections & Ports",
-              explanation:
-                "Use `netstat`, `ss`, and `lsof` to inspect open ports, listening services, and active network connections.",
-              codeExample: `netstat -tuln
-      ss -tulwn
-      lsof -i :8080`,
-              useCases: [
-                {
-                  useCase: "Check what’s using a port",
-                  link: "https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/",
-                },
-                {
-                  useCase: "List active TCP/UDP services",
-                  link: "https://www.geeksforgeeks.org/netstat-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Debug failed network binding",
-                  link: "https://linuxize.com/post/ss-command-in-linux/",
-                },
-              ],
-            },
-            {
-              name: "Curl for HTTP Requests",
-              explanation:
-                "Use `curl` to test APIs and endpoints by sending HTTP requests directly from the terminal.",
-              codeExample: `curl https://api.github.com
-      curl -X POST -H "Content-Type: application/json" -d '{"name":"test"}' https://api.example.com`,
-              useCases: [
-                {
-                  useCase: "Test REST APIs",
-                  link: "https://www.baeldung.com/linux/curl-send-http-request",
-                },
-                {
-                  useCase: "Debug HTTP status codes",
-                  link: "https://linuxize.com/post/curl-command-examples/",
-                },
-                {
-                  useCase: "Download files",
-                  link: "https://www.geeksforgeeks.org/curl-command-in-linux-with-examples/",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "Port already in use",
-              link: "https://stackoverflow.com/questions/3855127/find-and-kill-process-locking-port-3000-on-mac",
-            },
-            {
-              name: "Unable to resolve DNS",
-              link: "https://linuxconfig.org/how-to-fix-dns-problems-using-resolv-conf-in-linux",
-            },
-            {
-              name: "Check if host is reachable",
-              link: "https://www.geeksforgeeks.org/ping-command-in-linux-with-examples/",
-            },
-          ],
-        },
-      },
-
-      {
-        name: "Text Processing",
-        description:
-          "Powerful command-line tools for manipulating and analyzing text.",
-        difficulty: "Beginner",
-        topics: ["grep", "awk", "sed", "cut", "sort", "uniq", "wc"],
-        details: {
-          overview:
-            "Linux provides powerful tools for processing and manipulating text directly from the command line. These tools are essential for tasks like filtering logs, extracting fields, transforming data, and counting lines or patterns.",
-          timeComplexity:
-            "O(n) for line-by-line processing where n is number of lines in a file",
-          spaceComplexity:
-            "Usually O(1) as most commands stream data line-by-line without full memory load",
-          keyTechniques: [
-            {
-              name: "Pattern Searching with grep",
-              explanation:
-                "`grep` searches for lines that match a given pattern. Useful for finding errors, filtering logs, or identifying matches.",
-              codeExample: `grep "ERROR" app.log
-      grep -i "login" server.log | grep -v "success"`,
-              useCases: [
-                {
-                  useCase: "Search error logs",
-                  link: "https://www.geeksforgeeks.org/grep-command-in-unixlinux/",
-                },
-                {
-                  useCase: "Filter specific lines",
-                  link: "https://linuxize.com/post/grep-command-in-linux/",
-                },
-                {
-                  useCase: "Case-insensitive search",
-                  link: "https://www.baeldung.com/linux/grep-case-insensitive",
-                },
-              ],
-            },
-            {
-              name: "Field Extraction with cut & awk",
-              explanation:
-                "`cut` extracts specific fields or columns, while `awk` is more powerful for pattern-based processing and field manipulation.",
-              codeExample: `cut -d':' -f1 /etc/passwd
-      awk '{print $1, $NF}' file.txt`,
-              useCases: [
-                {
-                  useCase: "Extract usernames",
-                  link: "https://www.geeksforgeeks.org/cut-command-linux-examples/",
-                },
-                {
-                  useCase: "Print specific fields",
-                  link: "https://www.geeksforgeeks.org/awk-command-unixlinux-examples/",
-                },
-                {
-                  useCase: "Transform column format",
-                  link: "https://www.baeldung.com/linux/awk-transform-columns",
-                },
-              ],
-            },
-            {
-              name: "Stream Editing with sed",
-              explanation:
-                "`sed` is a stream editor used for substitutions, deletions, insertions, and transformations in a text stream.",
-              codeExample: `sed 's/error/ERROR/g' logfile.txt
-      sed -n '5,10p' config.txt`,
-              useCases: [
-                {
-                  useCase: "Replace text in file",
-                  link: "https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/",
-                },
-                {
-                  useCase: "Delete specific lines",
-                  link: "https://linuxize.com/post/sed-command-in-linux/",
-                },
-                {
-                  useCase: "Print line ranges",
-                  link: "https://www.baeldung.com/linux/sed-line-range",
-                },
-              ],
-            },
-            {
-              name: "Counting and Sorting Text",
-              explanation:
-                "Commands like `wc`, `sort`, and `uniq` help with counting lines, sorting text files, and removing duplicates.",
-              codeExample: `wc -l file.txt
-      sort file.txt | uniq -c`,
-              useCases: [
-                {
-                  useCase: "Count lines or words",
-                  link: "https://www.geeksforgeeks.org/wc-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Sort a file alphabetically",
-                  link: "https://www.geeksforgeeks.org/sort-command-linuxunix-examples/",
-                },
-                {
-                  useCase: "Find duplicate lines",
-                  link: "https://linuxize.com/post/uniq-command-in-linux/",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "Search for keyword in logs",
-              link: "https://www.geeksforgeeks.org/grep-command-in-unixlinux/",
-            },
-            {
-              name: "Extract and manipulate columns in a CSV",
-              link: "https://www.geeksforgeeks.org/awk-command-unixlinux-examples/",
-            },
-            {
-              name: "Replace text across multiple lines",
-              link: "https://linuxize.com/post/sed-command-in-linux/",
-            },
-          ],
-        },
-      },
-      {
-        name: "System Monitoring & Logging",
-        description:
-          "Monitor performance and analyze system behavior in real time.",
-        difficulty: "Intermediate",
-        topics: ["top", "htop", "vmstat", "iostat", "journalctl", "log files"],
-        details: {
-          overview:
-            "System monitoring tools help track CPU, memory, disk, and process activity in real time, while logging tools capture system events for debugging, auditing, and performance tuning.",
-          timeComplexity:
-            "O(1) per sample collection; tools run continuously in background",
-          spaceComplexity:
-            "Depends on log file size; tools themselves use minimal memory",
-          keyTechniques: [
-            {
-              name: "Real-time Resource Monitoring (top, htop, vmstat, iostat)",
-              explanation:
-                "Use CLI tools to view running processes, memory usage, CPU load, and I/O statistics in real time.",
-              codeExample: `top         # Live process monitoring
-      htop        # Enhanced top with GUI
-      vmstat 1    # Memory, swap, CPU report every second
-      iostat -x 2 # Detailed disk I/O every 2s`,
-              useCases: [
-                {
-                  useCase: "Monitor CPU/memory usage",
-                  link: "https://www.geeksforgeeks.org/top-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Identify slow I/O",
-                  link: "https://www.baeldung.com/linux/iostat-command",
-                },
-                {
-                  useCase: "Analyze memory bottlenecks",
-                  link: "https://www.geeksforgeeks.org/vmstat-command-in-linux-with-examples/",
-                },
-              ],
-            },
-            {
-              name: "System Logs with journalctl & /var/log",
-              explanation:
-                "`journalctl` queries the systemd journal for logs. `/var/log` contains kernel, auth, application, and daemon logs.",
-              codeExample: `journalctl -xe            # Show recent logs with priority
-      journalctl -u nginx.service  # Logs from specific service
-      tail -f /var/log/syslog      # Follow system logs`,
-              useCases: [
-                {
-                  useCase: "Debug service failures",
-                  link: "https://www.baeldung.com/linux/journalctl-command",
-                },
-                {
-                  useCase: "Track authentication events",
-                  link: "https://www.tecmint.com/linux-log-files/",
-                },
-                {
-                  useCase: "Live log monitoring",
-                  link: "https://linuxize.com/post/using-tail-command-in-linux/",
-                },
-              ],
-            },
-            {
-              name: "Monitoring Tools Integration",
-              explanation:
-                "Combine native tools with Prometheus, Grafana, or ELK stack for historical analysis, alerting, and visual dashboards.",
-              codeExample: `# Export metrics to Prometheus:
-      node_exporter
-      
-      # Monitor logs with:
-      Filebeat -> Logstash -> Elasticsearch -> Kibana`,
-              useCases: [
-                {
-                  useCase: "Visualize metrics with Grafana",
-                  link: "https://grafana.com/docs/grafana/latest/getting-started/",
-                },
-                {
-                  useCase: "Centralized log monitoring with ELK",
-                  link: "https://www.elastic.co/what-is/elk-stack",
-                },
-                {
-                  useCase: "Set up custom alerts",
-                  link: "https://prometheus.io/docs/alerting/latest/alertmanager/",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "High CPU usage analysis",
-              link: "https://www.geeksforgeeks.org/top-command-in-linux-with-examples/",
-            },
-            {
-              name: "Debug service crash via journalctl",
-              link: "https://www.baeldung.com/linux/journalctl-command",
-            },
-            {
-              name: "Track failed SSH login attempts",
-              link: "https://linuxhandbook.com/check-login-history-linux/",
-            },
-          ],
-        },
-      },
-      {
-        name: "Disk & Storage",
-        description:
-          "Understand and manage disk partitions, mounting, and usage.",
-        difficulty: "Intermediate",
-        topics: [
-          "df",
-          "du",
-          "mount",
-          "umount",
-          "fstab",
-          "lsblk",
-          "parted",
-          "lvm",
-        ],
-        details: {
-          overview:
-            "Disk and storage management involves understanding how storage devices are structured, partitioned, and accessed by the OS. It includes checking disk space, managing mount points, and configuring partitions or logical volumes.",
-          timeComplexity:
-            "O(1) for command execution; some disk operations can be O(n)",
-          spaceComplexity:
-            "Depends on output and logs; negligible for most CLI tools",
-          keyTechniques: [
-            {
-              name: "Disk Usage Analysis (df, du)",
-              explanation:
-                "`df` shows disk space on mounted filesystems. `du` shows file and directory space usage.",
-              codeExample: `df -h          # Show disk space in human-readable format
-      du -sh *       # Show size of all files/folders in current dir
-      du -ah /path   # Recursive file size display`,
-              useCases: [
-                {
-                  useCase: "Find out free disk space",
-                  link: "https://www.geeksforgeeks.org/df-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Identify large files/folders",
-                  link: "https://www.geeksforgeeks.org/du-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Monitor disk space for cleanup",
-                  link: "https://linuxize.com/post/check-disk-space-linux/",
-                },
-              ],
-            },
-            {
-              name: "Mounting and Filesystem Configuration (mount, umount, fstab)",
-              explanation:
-                "`mount` attaches a filesystem to a directory tree. `fstab` defines permanent mount rules.",
-              codeExample: `mount /dev/sdb1 /mnt/data      # Mount disk
-      umount /mnt/data              # Unmount
-      cat /etc/fstab                # Persistent mount config`,
-              useCases: [
-                {
-                  useCase: "Mount external drives",
-                  link: "https://linuxize.com/post/how-to-mount-and-unmount-drives-in-linux/",
-                },
-                {
-                  useCase: "Automount filesystems at boot",
-                  link: "https://wiki.archlinux.org/title/fstab",
-                },
-                {
-                  useCase: "Resolve mount permission issues",
-                  link: "https://ostechnix.com/fix-mount-error-in-linux/",
-                },
-              ],
-            },
-            {
-              name: "Partitioning & LVM (lsblk, parted, lvm)",
-              explanation:
-                "Use `lsblk` to inspect block devices. `parted` and `fdisk` manage partitions. LVM allows flexible volume resizing and snapshotting.",
-              codeExample: `lsblk                         # View disks and mount points
-      sudo parted /dev/sdb          # Partition editor
-      sudo lvcreate -L 5G -n lv1 vg # Create logical volume`,
-              useCases: [
-                {
-                  useCase: "Resize or create disk partitions",
-                  link: "https://www.geeksforgeeks.org/parted-command-in-linux-with-examples/",
-                },
-                {
-                  useCase: "Create logical volumes with LVM",
-                  link: "https://linuxconfig.org/logical-volume-management-lvm-on-linux",
-                },
-                {
-                  useCase: "Inspect mounted disks",
-                  link: "https://linuxize.com/post/linux-lsblk-command/",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "Check available disk space",
-              link: "https://linuxize.com/post/check-disk-space-linux/",
-            },
-            {
-              name: "Fix full root partition",
-              link: "https://www.tecmint.com/free-up-space-in-linux/",
-            },
-            {
-              name: "Create partition and mount it",
-              link: "https://www.geeksforgeeks.org/how-to-partition-and-format-a-disk-in-linux/",
-            },
-          ],
-        },
-      },
-      {
-        name: "Docker",
-        description:
-          "Containerization platform for building, shipping, and running applications.",
-        difficulty: "Intermediate",
-        topics: [
-          "Dockerfile",
-          "Containers vs Images",
-          "Volumes",
-          "Docker Compose",
-          "Networking",
-          "Build, Run, Push",
-        ],
-        details: {
-          overview:
-            "Docker allows you to package applications and their dependencies into isolated environments called containers. It provides consistency across development, testing, and production systems.",
-          timeComplexity:
-            "O(1) for container start/stop; O(n) for image build depending on Dockerfile steps.",
-          spaceComplexity:
-            "Depends on base image size and layers; optimized Dockerfiles reduce space usage.",
-          keyTechniques: [
-            {
-              name: "Dockerfile & Image Building",
-              explanation:
-                "A Dockerfile contains instructions to build an image layer-by-layer using commands like `FROM`, `RUN`, `COPY`, and `CMD`.",
-              codeExample: `# Sample Dockerfile
-      FROM openjdk:17
-      WORKDIR /app
-      COPY . .
-      RUN javac Main.java
-      CMD ["java", "Main"]`,
-              useCases: [
-                {
-                  useCase: "Create reproducible environments",
-                  link: "https://docs.docker.com/engine/reference/builder/",
-                },
-                {
-                  useCase: "Build optimized images",
-                  link: "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/",
-                },
-                {
-                  useCase: "Multi-stage builds for smaller image sizes",
-                  link: "https://docs.docker.com/develop/develop-images/multistage-build/",
-                },
-              ],
-            },
-            {
-              name: "Volumes and Data Persistence",
-              explanation:
-                "Docker volumes allow you to persist data outside of containers and share files between containers and the host system.",
-              codeExample: `# Create volume and run container
-      docker volume create mydata
-      docker run -v mydata:/app/data myimage`,
-              useCases: [
-                {
-                  useCase: "Persist database data",
-                  link: "https://docs.docker.com/storage/volumes/",
-                },
-                {
-                  useCase: "Share config files with containers",
-                  link: "https://docs.docker.com/storage/bind-mounts/",
-                },
-                {
-                  useCase: "Backup and restore container state",
-                  link: "https://phoenixnap.com/kb/docker-backup-container",
-                },
-              ],
-            },
-            {
-              name: "Docker Compose & Multi-container Apps",
-              explanation:
-                "Compose allows defining multi-container apps with YAML configuration, enabling easy startup and orchestration.",
-              codeExample: `# docker-compose.yml
-      version: '3'
-      services:
-        web:
-          image: nginx
-          ports:
-            - "80:80"
-        app:
-          build: .
-          volumes:
-            - .:/code`,
-              useCases: [
-                {
-                  useCase: "Define dev environment with DB + API + frontend",
-                  link: "https://docs.docker.com/compose/",
-                },
-                {
-                  useCase: "Deploy services locally",
-                  link: "https://docs.docker.com/get-started/08_using_compose/",
-                },
-                {
-                  useCase: "Network multiple services together",
-                  link: "https://docs.docker.com/compose/networking/",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "Dockerize a Java application",
-              link: "https://www.baeldung.com/dockerizing-spring-boot-application",
-            },
-            {
-              name: "Build and push Docker images",
-              link: "https://docs.docker.com/engine/reference/commandline/push/",
-            },
-            {
-              name: "Fix volume permission issues",
-              link: "https://stackoverflow.com/questions/29261811/permission-denied-on-docker-mounted-volume",
-            },
-          ],
-        },
-      },
-      {
-        name: "Kubernetes",
-        description:
-          "Container orchestration platform for managing scalable and distributed applications.",
-        difficulty: "Advanced",
-        topics: [
-          "Pods & Deployments",
-          "Services",
-          "ConfigMaps & Secrets",
-          "Namespaces",
-          "Horizontal Scaling",
-          "Helm",
-        ],
-        details: {
-          overview:
-            "Kubernetes automates the deployment, scaling, and management of containerized applications. It provides features such as rolling updates, service discovery, self-healing, and load balancing for distributed systems.",
-          timeComplexity:
-            "O(1) to O(n) for scheduling and scaling based on cluster size and pod requirements.",
-          spaceComplexity:
-            "Depends on node configurations and volume storage used by pods.",
-          keyTechniques: [
-            {
-              name: "Pods & Deployments",
-              explanation:
-                "A Pod is the smallest unit in Kubernetes that encapsulates one or more containers. Deployments manage replica sets and ensure the desired number of pods are running.",
-              codeExample: `# deployment.yaml
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: my-app
-      spec:
-        replicas: 3
-        selector:
-          matchLabels:
-            app: my-app
-        template:
-          metadata:
-            labels:
-              app: my-app
-          spec:
-            containers:
-            - name: app
-              image: my-app:latest
-              ports:
-              - containerPort: 8080`,
-              useCases: [
-                {
-                  useCase: "Run scalable applications",
-                  link: "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
-                },
-                {
-                  useCase: "Rolling updates and rollbacks",
-                  link: "https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/",
-                },
-                {
-                  useCase: "Manage application versions",
-                  link: "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment",
-                },
-              ],
-            },
-            {
-              name: "Services & Load Balancing",
-              explanation:
-                "Services expose pods to external or internal traffic. They ensure reliable communication using labels and selectors.",
-              codeExample: `# service.yaml
-      apiVersion: v1
-      kind: Service
-      metadata:
-        name: my-service
-      spec:
-        selector:
-          app: my-app
-        ports:
-          - protocol: TCP
-            port: 80
-            targetPort: 8080
-        type: LoadBalancer`,
-              useCases: [
-                {
-                  useCase: "Expose applications to the internet",
-                  link: "https://kubernetes.io/docs/concepts/services-networking/service/",
-                },
-                {
-                  useCase: "Service discovery within the cluster",
-                  link: "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/",
-                },
-                {
-                  useCase: "Load balancing traffic to pods",
-                  link: "https://kubernetes.io/docs/concepts/services-networking/#loadbalancer",
-                },
-              ],
-            },
-            {
-              name: "ConfigMaps & Secrets",
-              explanation:
-                "ConfigMaps and Secrets provide configuration and sensitive data to applications without hardcoding them into images.",
-              codeExample: `# configmap.yaml
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: app-config
-      data:
-        LOG_LEVEL: debug
-      
-      # secret.yaml
-      apiVersion: v1
-      kind: Secret
-      metadata:
-        name: db-secret
-      type: Opaque
-      data:
-        password: cGFzc3dvcmQ=  # base64 encoded`,
-              useCases: [
-                {
-                  useCase: "Inject config into containers",
-                  link: "https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/",
-                },
-                {
-                  useCase: "Handle credentials securely",
-                  link: "https://kubernetes.io/docs/concepts/configuration/secret/",
-                },
-                {
-                  useCase: "Decouple environment-specific settings",
-                  link: "https://kubernetes.io/docs/concepts/configuration/overview/",
-                },
-              ],
-            },
-          ],
-          commonProblems: [
-            {
-              name: "CrashLoopBackOff debugging",
-              link: "https://kubernetes.io/docs/tasks/debug/debug-application/debug-crash/",
-            },
-            {
-              name: "Expose service via Ingress",
-              link: "https://kubernetes.io/docs/concepts/services-networking/ingress/",
-            },
-            {
-              name: "Horizontal Pod Autoscaler",
-              link: "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
-            },
-          ],
-        },
-      },
-    ],
-  },
   dsa: {
     title: "Data Structures & Algorithms",
     icon: Brain,
@@ -4156,12 +3200,968 @@ const projectCategories: Record<
       },
     ],
   },
+  "system-design": {
+    title: "System Design",
+    icon: Network,
+    description: "Large-scale distributed systems and architecture patterns",
+    concepts: [
+      {
+        name: "Load Balancing",
+        description:
+          "Horizontal scaling with Nginx and HAProxy implementations",
+        difficulty: "Intermediate",
+        topics: [
+          "Round Robin",
+          "Weighted Routing",
+          "Health Checks",
+          "Session Persistence",
+        ],
+      },
+      {
+        name: "Database Sharding",
+        description: "Partitioning strategies for PostgreSQL at scale",
+        difficulty: "Advanced",
+        topics: [
+          "Horizontal Partitioning",
+          "Consistent Hashing",
+          "Cross-shard Queries",
+          "Rebalancing",
+        ],
+      },
+      {
+        name: "Microservices Architecture",
+        description: "Service decomposition and communication patterns",
+        difficulty: "Advanced",
+        topics: [
+          "Service Discovery",
+          "Circuit Breaker",
+          "Event Sourcing",
+          "SAGA Pattern",
+        ],
+      },
+      {
+        name: "Caching Strategies",
+        description: "Redis and Memcached implementation patterns",
+        difficulty: "Intermediate",
+        topics: [
+          "Cache-aside",
+          "Write-through",
+          "Write-behind",
+          "Cache Invalidation",
+        ],
+      },
+    ],
+  },
+  linux: {
+    title: "Linux & DevOps",
+    icon: Monitor,
+    description: "System administration and infrastructure automation",
+    concepts: [
+      {
+        name: "Process Management",
+        description:
+          "Understanding, controlling, and monitoring Linux system processes.",
+        difficulty: "Beginner",
+        topics: [
+          "Foreground/Background",
+          "Signals",
+          "Systemd",
+          "Monitoring Tools",
+        ],
+        details: {
+          overview:
+            "Process management in Linux involves handling the lifecycle of system processes — from creation and execution to termination. It also includes monitoring, signaling, and configuring services using tools like `ps`, `top`, and `systemctl`.",
+          timeComplexity:
+            "O(1) for signaling; O(n) for scanning all processes (e.g., ps/top)",
+          spaceComplexity:
+            "Depends on number of active processes; typically O(n)",
+          keyTechniques: [
+            {
+              name: "Listing and Managing Processes",
+              explanation:
+                "Use commands like `ps`, `top`, and `htop` to list active processes. Combine with `grep`, `sort`, and `kill` to filter and manage them.",
+              codeExample: `ps aux | grep python
+      kill -9 <PID>
+      top`,
+              useCases: [
+                {
+                  useCase: "Find running process by name",
+                  link: "https://linux.die.net/man/1/ps",
+                },
+                {
+                  useCase: "Kill a stuck or zombie process",
+                  link: "https://linuxize.com/post/how-to-kill-a-process-in-linux/",
+                },
+                {
+                  useCase: "Live monitoring of CPU/memory usage",
+                  link: "https://linux.die.net/man/1/top",
+                },
+              ],
+            },
+            {
+              name: "Background & Foreground Jobs",
+              explanation:
+                "Run commands in the background using `&`. Use `jobs`, `fg`, `bg`, and `kill` to manage job states.",
+              codeExample: `sleep 60 &
+      jobs
+      fg %1`,
+              useCases: [
+                {
+                  useCase: "Run long tasks in background",
+                  link: "https://www.geeksforgeeks.org/run-processes-in-background-linux/",
+                },
+                {
+                  useCase: "Bring background job to foreground",
+                  link: "https://linuxize.com/post/how-to-use-fg-command-in-linux/",
+                },
+                {
+                  useCase: "List all active jobs",
+                  link: "https://www.baeldung.com/linux/jobs-command",
+                },
+              ],
+            },
+            {
+              name: "Service Management with systemd",
+              explanation:
+                "Use `systemctl` to manage system services (start, stop, enable, disable) and inspect logs.",
+              codeExample: `systemctl start nginx
+      systemctl status nginx
+      journalctl -u nginx`,
+              useCases: [
+                {
+                  useCase: "Start or restart a service",
+                  link: "https://www.digitalocean.com/community/tutorials/systemctl-essential-commands",
+                },
+                {
+                  useCase: "Enable service on boot",
+                  link: "https://www.cyberciti.biz/faq/how-to-enable-disable-services-in-linux/",
+                },
+                {
+                  useCase: "Check service logs",
+                  link: "https://www.freedesktop.org/software/systemd/man/journalctl.html",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "Kill process using PID",
+              link: "https://www.geeksforgeeks.org/how-to-kill-a-process-in-linux/",
+            },
+            {
+              name: "List top CPU-consuming processes",
+              link: "https://www.howtogeek.com/668986/how-to-use-the-top-command-on-linux/",
+            },
+            {
+              name: "Restart a systemd service",
+              link: "https://www.tecmint.com/manage-systemd-services-using-systemctl-in-linux/",
+            },
+          ],
+        },
+      },
+
+      {
+        name: "File System & Permissions",
+        description:
+          "Understand Linux directory structure and manage access using permissions.",
+        difficulty: "Beginner",
+        topics: ["/bin", "/etc", "/home", "chmod", "chown", "umask"],
+        details: {
+          overview:
+            "The Linux file system is a hierarchical structure starting at the root `/`, organizing everything into directories. File permissions and ownership determine who can read, write, or execute a file or directory, critical for system security and stability.",
+          timeComplexity:
+            "O(1) for permission changes, O(n) for recursive operations",
+          spaceComplexity:
+            "Negligible unless processing deeply nested directories",
+          keyTechniques: [
+            {
+              name: "Understanding Linux File System Structure",
+              explanation:
+                "Familiar directories include `/bin` for binaries, `/etc` for configurations, `/home` for user data, `/var` for logs, and `/tmp` for temporary files. Each serves a distinct system role.",
+              codeExample: `ls /
+      cd /etc
+      ls -l /home`,
+              useCases: [
+                {
+                  useCase: "Locate config files",
+                  link: "https://www.geeksforgeeks.org/etc-directory-in-linux/",
+                },
+                {
+                  useCase: "Check user directories",
+                  link: "https://www.baeldung.com/linux/home-directory",
+                },
+                {
+                  useCase: "Access executable programs",
+                  link: "https://linuxhandbook.com/bin-directory/",
+                },
+              ],
+            },
+            {
+              name: "File Permissions with chmod",
+              explanation:
+                "Permissions are divided into user, group, and others. Use `chmod` to set read (r), write (w), and execute (x) permissions.",
+              codeExample: `chmod 755 script.sh
+      chmod u+x script.sh
+      chmod -R 644 /var/www`,
+              useCases: [
+                {
+                  useCase: "Make script executable",
+                  link: "https://www.geeksforgeeks.org/chmod-command-linux-example/",
+                },
+                {
+                  useCase: "Restrict access to group/others",
+                  link: "https://linuxize.com/post/linux-file-permissions/",
+                },
+                {
+                  useCase: "Change permissions recursively",
+                  link: "https://www.cyberciti.biz/faq/linux-recursively-change-file-permissions/",
+                },
+              ],
+            },
+            {
+              name: "Ownership Management with chown",
+              explanation:
+                "Each file/directory is owned by a user and a group. Use `chown` to change ownership and `chgrp` to change group.",
+              codeExample: `chown user:group file.txt
+      chown -R ubuntu:www-data /var/www`,
+              useCases: [
+                {
+                  useCase: "Set ownership after file transfer",
+                  link: "https://www.geeksforgeeks.org/chown-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Fix web server file permissions",
+                  link: "https://linuxize.com/post/linux-chown-command/",
+                },
+                {
+                  useCase: "Assign group ownership",
+                  link: "https://www.baeldung.com/linux/chgrp-command",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "Permission denied error fix",
+              link: "https://phoenixnap.com/kb/linux-file-permissions",
+            },
+            {
+              name: "Make file executable",
+              link: "https://linuxize.com/post/how-to-make-a-file-executable-in-linux/",
+            },
+            {
+              name: "Change file owner and group",
+              link: "https://www.geeksforgeeks.org/chown-command-in-linux-with-examples/",
+            },
+          ],
+        },
+      },
+      {
+        name: "Networking",
+        description:
+          "Understanding core networking tools and communication in Linux.",
+        difficulty: "Beginner",
+        topics: ["IP", "DNS", "Ping", "Netstat", "Curl", "SSH", "Ports"],
+        details: {
+          overview:
+            "Linux networking enables communication between systems and services. Core tools help diagnose, configure, and troubleshoot network connectivity, making networking essential for servers, DevOps, and backend systems.",
+          timeComplexity:
+            "Most networking tools operate in O(1) or O(n) where n = number of connections/interfaces",
+          spaceComplexity: "Negligible for typical diagnostic commands",
+          keyTechniques: [
+            {
+              name: "Check IP and Network Interfaces",
+              explanation:
+                "Use `ip` or `ifconfig` to list active network interfaces, IP addresses, and connection status.",
+              codeExample: `ip a
+      ifconfig
+      ip route show`,
+              useCases: [
+                {
+                  useCase: "Find local IP address",
+                  link: "https://www.cyberciti.biz/faq/how-to-find-ip-address-in-linux/",
+                },
+                {
+                  useCase: "Debug routing issues",
+                  link: "https://linuxize.com/post/ip-command-examples/",
+                },
+                {
+                  useCase: "List all network interfaces",
+                  link: "https://www.geeksforgeeks.org/ifconfig-command-in-linux-with-examples/",
+                },
+              ],
+            },
+            {
+              name: "DNS & Connectivity Checks",
+              explanation:
+                "Use `ping`, `dig`, and `nslookup` to check if hosts are reachable and resolve DNS names to IP addresses.",
+              codeExample: `ping google.com
+      dig openai.com
+      nslookup github.com`,
+              useCases: [
+                {
+                  useCase: "Check server reachability",
+                  link: "https://www.geeksforgeeks.org/ping-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Debug DNS resolution",
+                  link: "https://linuxize.com/post/dig-command-in-linux/",
+                },
+                {
+                  useCase: "Check DNS records",
+                  link: "https://www.geeksforgeeks.org/nslookup-command-in-linux-with-examples/",
+                },
+              ],
+            },
+            {
+              name: "Network Connections & Ports",
+              explanation:
+                "Use `netstat`, `ss`, and `lsof` to inspect open ports, listening services, and active network connections.",
+              codeExample: `netstat -tuln
+      ss -tulwn
+      lsof -i :8080`,
+              useCases: [
+                {
+                  useCase: "Check what’s using a port",
+                  link: "https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/",
+                },
+                {
+                  useCase: "List active TCP/UDP services",
+                  link: "https://www.geeksforgeeks.org/netstat-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Debug failed network binding",
+                  link: "https://linuxize.com/post/ss-command-in-linux/",
+                },
+              ],
+            },
+            {
+              name: "Curl for HTTP Requests",
+              explanation:
+                "Use `curl` to test APIs and endpoints by sending HTTP requests directly from the terminal.",
+              codeExample: `curl https://api.github.com
+      curl -X POST -H "Content-Type: application/json" -d '{"name":"test"}' https://api.example.com`,
+              useCases: [
+                {
+                  useCase: "Test REST APIs",
+                  link: "https://www.baeldung.com/linux/curl-send-http-request",
+                },
+                {
+                  useCase: "Debug HTTP status codes",
+                  link: "https://linuxize.com/post/curl-command-examples/",
+                },
+                {
+                  useCase: "Download files",
+                  link: "https://www.geeksforgeeks.org/curl-command-in-linux-with-examples/",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "Port already in use",
+              link: "https://stackoverflow.com/questions/3855127/find-and-kill-process-locking-port-3000-on-mac",
+            },
+            {
+              name: "Unable to resolve DNS",
+              link: "https://linuxconfig.org/how-to-fix-dns-problems-using-resolv-conf-in-linux",
+            },
+            {
+              name: "Check if host is reachable",
+              link: "https://www.geeksforgeeks.org/ping-command-in-linux-with-examples/",
+            },
+          ],
+        },
+      },
+
+      {
+        name: "Text Processing",
+        description:
+          "Powerful command-line tools for manipulating and analyzing text.",
+        difficulty: "Beginner",
+        topics: ["grep", "awk", "sed", "cut", "sort", "uniq", "wc"],
+        details: {
+          overview:
+            "Linux provides powerful tools for processing and manipulating text directly from the command line. These tools are essential for tasks like filtering logs, extracting fields, transforming data, and counting lines or patterns.",
+          timeComplexity:
+            "O(n) for line-by-line processing where n is number of lines in a file",
+          spaceComplexity:
+            "Usually O(1) as most commands stream data line-by-line without full memory load",
+          keyTechniques: [
+            {
+              name: "Pattern Searching with grep",
+              explanation:
+                "`grep` searches for lines that match a given pattern. Useful for finding errors, filtering logs, or identifying matches.",
+              codeExample: `grep "ERROR" app.log
+      grep -i "login" server.log | grep -v "success"`,
+              useCases: [
+                {
+                  useCase: "Search error logs",
+                  link: "https://www.geeksforgeeks.org/grep-command-in-unixlinux/",
+                },
+                {
+                  useCase: "Filter specific lines",
+                  link: "https://linuxize.com/post/grep-command-in-linux/",
+                },
+                {
+                  useCase: "Case-insensitive search",
+                  link: "https://www.baeldung.com/linux/grep-case-insensitive",
+                },
+              ],
+            },
+            {
+              name: "Field Extraction with cut & awk",
+              explanation:
+                "`cut` extracts specific fields or columns, while `awk` is more powerful for pattern-based processing and field manipulation.",
+              codeExample: `cut -d':' -f1 /etc/passwd
+      awk '{print $1, $NF}' file.txt`,
+              useCases: [
+                {
+                  useCase: "Extract usernames",
+                  link: "https://www.geeksforgeeks.org/cut-command-linux-examples/",
+                },
+                {
+                  useCase: "Print specific fields",
+                  link: "https://www.geeksforgeeks.org/awk-command-unixlinux-examples/",
+                },
+                {
+                  useCase: "Transform column format",
+                  link: "https://www.baeldung.com/linux/awk-transform-columns",
+                },
+              ],
+            },
+            {
+              name: "Stream Editing with sed",
+              explanation:
+                "`sed` is a stream editor used for substitutions, deletions, insertions, and transformations in a text stream.",
+              codeExample: `sed 's/error/ERROR/g' logfile.txt
+      sed -n '5,10p' config.txt`,
+              useCases: [
+                {
+                  useCase: "Replace text in file",
+                  link: "https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/",
+                },
+                {
+                  useCase: "Delete specific lines",
+                  link: "https://linuxize.com/post/sed-command-in-linux/",
+                },
+                {
+                  useCase: "Print line ranges",
+                  link: "https://www.baeldung.com/linux/sed-line-range",
+                },
+              ],
+            },
+            {
+              name: "Counting and Sorting Text",
+              explanation:
+                "Commands like `wc`, `sort`, and `uniq` help with counting lines, sorting text files, and removing duplicates.",
+              codeExample: `wc -l file.txt
+      sort file.txt | uniq -c`,
+              useCases: [
+                {
+                  useCase: "Count lines or words",
+                  link: "https://www.geeksforgeeks.org/wc-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Sort a file alphabetically",
+                  link: "https://www.geeksforgeeks.org/sort-command-linuxunix-examples/",
+                },
+                {
+                  useCase: "Find duplicate lines",
+                  link: "https://linuxize.com/post/uniq-command-in-linux/",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "Search for keyword in logs",
+              link: "https://www.geeksforgeeks.org/grep-command-in-unixlinux/",
+            },
+            {
+              name: "Extract and manipulate columns in a CSV",
+              link: "https://www.geeksforgeeks.org/awk-command-unixlinux-examples/",
+            },
+            {
+              name: "Replace text across multiple lines",
+              link: "https://linuxize.com/post/sed-command-in-linux/",
+            },
+          ],
+        },
+      },
+      {
+        name: "System Monitoring & Logging",
+        description:
+          "Monitor performance and analyze system behavior in real time.",
+        difficulty: "Intermediate",
+        topics: ["top", "htop", "vmstat", "iostat", "journalctl", "log files"],
+        details: {
+          overview:
+            "System monitoring tools help track CPU, memory, disk, and process activity in real time, while logging tools capture system events for debugging, auditing, and performance tuning.",
+          timeComplexity:
+            "O(1) per sample collection; tools run continuously in background",
+          spaceComplexity:
+            "Depends on log file size; tools themselves use minimal memory",
+          keyTechniques: [
+            {
+              name: "Real-time Resource Monitoring (top, htop, vmstat, iostat)",
+              explanation:
+                "Use CLI tools to view running processes, memory usage, CPU load, and I/O statistics in real time.",
+              codeExample: `top         # Live process monitoring
+      htop        # Enhanced top with GUI
+      vmstat 1    # Memory, swap, CPU report every second
+      iostat -x 2 # Detailed disk I/O every 2s`,
+              useCases: [
+                {
+                  useCase: "Monitor CPU/memory usage",
+                  link: "https://www.geeksforgeeks.org/top-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Identify slow I/O",
+                  link: "https://www.baeldung.com/linux/iostat-command",
+                },
+                {
+                  useCase: "Analyze memory bottlenecks",
+                  link: "https://www.geeksforgeeks.org/vmstat-command-in-linux-with-examples/",
+                },
+              ],
+            },
+            {
+              name: "System Logs with journalctl & /var/log",
+              explanation:
+                "`journalctl` queries the systemd journal for logs. `/var/log` contains kernel, auth, application, and daemon logs.",
+              codeExample: `journalctl -xe            # Show recent logs with priority
+      journalctl -u nginx.service  # Logs from specific service
+      tail -f /var/log/syslog      # Follow system logs`,
+              useCases: [
+                {
+                  useCase: "Debug service failures",
+                  link: "https://www.baeldung.com/linux/journalctl-command",
+                },
+                {
+                  useCase: "Track authentication events",
+                  link: "https://www.tecmint.com/linux-log-files/",
+                },
+                {
+                  useCase: "Live log monitoring",
+                  link: "https://linuxize.com/post/using-tail-command-in-linux/",
+                },
+              ],
+            },
+            {
+              name: "Monitoring Tools Integration",
+              explanation:
+                "Combine native tools with Prometheus, Grafana, or ELK stack for historical analysis, alerting, and visual dashboards.",
+              codeExample: `# Export metrics to Prometheus:
+      node_exporter
+      
+      # Monitor logs with:
+      Filebeat -> Logstash -> Elasticsearch -> Kibana`,
+              useCases: [
+                {
+                  useCase: "Visualize metrics with Grafana",
+                  link: "https://grafana.com/docs/grafana/latest/getting-started/",
+                },
+                {
+                  useCase: "Centralized log monitoring with ELK",
+                  link: "https://www.elastic.co/what-is/elk-stack",
+                },
+                {
+                  useCase: "Set up custom alerts",
+                  link: "https://prometheus.io/docs/alerting/latest/alertmanager/",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "High CPU usage analysis",
+              link: "https://www.geeksforgeeks.org/top-command-in-linux-with-examples/",
+            },
+            {
+              name: "Debug service crash via journalctl",
+              link: "https://www.baeldung.com/linux/journalctl-command",
+            },
+            {
+              name: "Track failed SSH login attempts",
+              link: "https://linuxhandbook.com/check-login-history-linux/",
+            },
+          ],
+        },
+      },
+      {
+        name: "Disk & Storage",
+        description:
+          "Understand and manage disk partitions, mounting, and usage.",
+        difficulty: "Intermediate",
+        topics: [
+          "df",
+          "du",
+          "mount",
+          "umount",
+          "fstab",
+          "lsblk",
+          "parted",
+          "lvm",
+        ],
+        details: {
+          overview:
+            "Disk and storage management involves understanding how storage devices are structured, partitioned, and accessed by the OS. It includes checking disk space, managing mount points, and configuring partitions or logical volumes.",
+          timeComplexity:
+            "O(1) for command execution; some disk operations can be O(n)",
+          spaceComplexity:
+            "Depends on output and logs; negligible for most CLI tools",
+          keyTechniques: [
+            {
+              name: "Disk Usage Analysis (df, du)",
+              explanation:
+                "`df` shows disk space on mounted filesystems. `du` shows file and directory space usage.",
+              codeExample: `df -h          # Show disk space in human-readable format
+      du -sh *       # Show size of all files/folders in current dir
+      du -ah /path   # Recursive file size display`,
+              useCases: [
+                {
+                  useCase: "Find out free disk space",
+                  link: "https://www.geeksforgeeks.org/df-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Identify large files/folders",
+                  link: "https://www.geeksforgeeks.org/du-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Monitor disk space for cleanup",
+                  link: "https://linuxize.com/post/check-disk-space-linux/",
+                },
+              ],
+            },
+            {
+              name: "Mounting and Filesystem Configuration (mount, umount, fstab)",
+              explanation:
+                "`mount` attaches a filesystem to a directory tree. `fstab` defines permanent mount rules.",
+              codeExample: `mount /dev/sdb1 /mnt/data      # Mount disk
+      umount /mnt/data              # Unmount
+      cat /etc/fstab                # Persistent mount config`,
+              useCases: [
+                {
+                  useCase: "Mount external drives",
+                  link: "https://linuxize.com/post/how-to-mount-and-unmount-drives-in-linux/",
+                },
+                {
+                  useCase: "Automount filesystems at boot",
+                  link: "https://wiki.archlinux.org/title/fstab",
+                },
+                {
+                  useCase: "Resolve mount permission issues",
+                  link: "https://ostechnix.com/fix-mount-error-in-linux/",
+                },
+              ],
+            },
+            {
+              name: "Partitioning & LVM (lsblk, parted, lvm)",
+              explanation:
+                "Use `lsblk` to inspect block devices. `parted` and `fdisk` manage partitions. LVM allows flexible volume resizing and snapshotting.",
+              codeExample: `lsblk                         # View disks and mount points
+      sudo parted /dev/sdb          # Partition editor
+      sudo lvcreate -L 5G -n lv1 vg # Create logical volume`,
+              useCases: [
+                {
+                  useCase: "Resize or create disk partitions",
+                  link: "https://www.geeksforgeeks.org/parted-command-in-linux-with-examples/",
+                },
+                {
+                  useCase: "Create logical volumes with LVM",
+                  link: "https://linuxconfig.org/logical-volume-management-lvm-on-linux",
+                },
+                {
+                  useCase: "Inspect mounted disks",
+                  link: "https://linuxize.com/post/linux-lsblk-command/",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "Check available disk space",
+              link: "https://linuxize.com/post/check-disk-space-linux/",
+            },
+            {
+              name: "Fix full root partition",
+              link: "https://www.tecmint.com/free-up-space-in-linux/",
+            },
+            {
+              name: "Create partition and mount it",
+              link: "https://www.geeksforgeeks.org/how-to-partition-and-format-a-disk-in-linux/",
+            },
+          ],
+        },
+      },
+      {
+        name: "Docker",
+        description:
+          "Containerization platform for building, shipping, and running applications.",
+        difficulty: "Intermediate",
+        topics: [
+          "Dockerfile",
+          "Containers vs Images",
+          "Volumes",
+          "Docker Compose",
+          "Networking",
+          "Build, Run, Push",
+        ],
+        details: {
+          overview:
+            "Docker allows you to package applications and their dependencies into isolated environments called containers. It provides consistency across development, testing, and production systems.",
+          timeComplexity:
+            "O(1) for container start/stop; O(n) for image build depending on Dockerfile steps.",
+          spaceComplexity:
+            "Depends on base image size and layers; optimized Dockerfiles reduce space usage.",
+          keyTechniques: [
+            {
+              name: "Dockerfile & Image Building",
+              explanation:
+                "A Dockerfile contains instructions to build an image layer-by-layer using commands like `FROM`, `RUN`, `COPY`, and `CMD`.",
+              codeExample: `# Sample Dockerfile
+      FROM openjdk:17
+      WORKDIR /app
+      COPY . .
+      RUN javac Main.java
+      CMD ["java", "Main"]`,
+              useCases: [
+                {
+                  useCase: "Create reproducible environments",
+                  link: "https://docs.docker.com/engine/reference/builder/",
+                },
+                {
+                  useCase: "Build optimized images",
+                  link: "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/",
+                },
+                {
+                  useCase: "Multi-stage builds for smaller image sizes",
+                  link: "https://docs.docker.com/develop/develop-images/multistage-build/",
+                },
+              ],
+            },
+            {
+              name: "Volumes and Data Persistence",
+              explanation:
+                "Docker volumes allow you to persist data outside of containers and share files between containers and the host system.",
+              codeExample: `# Create volume and run container
+      docker volume create mydata
+      docker run -v mydata:/app/data myimage`,
+              useCases: [
+                {
+                  useCase: "Persist database data",
+                  link: "https://docs.docker.com/storage/volumes/",
+                },
+                {
+                  useCase: "Share config files with containers",
+                  link: "https://docs.docker.com/storage/bind-mounts/",
+                },
+                {
+                  useCase: "Backup and restore container state",
+                  link: "https://phoenixnap.com/kb/docker-backup-container",
+                },
+              ],
+            },
+            {
+              name: "Docker Compose & Multi-container Apps",
+              explanation:
+                "Compose allows defining multi-container apps with YAML configuration, enabling easy startup and orchestration.",
+              codeExample: `# docker-compose.yml
+      version: '3'
+      services:
+        web:
+          image: nginx
+          ports:
+            - "80:80"
+        app:
+          build: .
+          volumes:
+            - .:/code`,
+              useCases: [
+                {
+                  useCase: "Define dev environment with DB + API + frontend",
+                  link: "https://docs.docker.com/compose/",
+                },
+                {
+                  useCase: "Deploy services locally",
+                  link: "https://docs.docker.com/get-started/08_using_compose/",
+                },
+                {
+                  useCase: "Network multiple services together",
+                  link: "https://docs.docker.com/compose/networking/",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "Dockerize a Java application",
+              link: "https://www.baeldung.com/dockerizing-spring-boot-application",
+            },
+            {
+              name: "Build and push Docker images",
+              link: "https://docs.docker.com/engine/reference/commandline/push/",
+            },
+            {
+              name: "Fix volume permission issues",
+              link: "https://stackoverflow.com/questions/29261811/permission-denied-on-docker-mounted-volume",
+            },
+          ],
+        },
+      },
+      {
+        name: "Kubernetes",
+        description:
+          "Container orchestration platform for managing scalable and distributed applications.",
+        difficulty: "Advanced",
+        topics: [
+          "Pods & Deployments",
+          "Services",
+          "ConfigMaps & Secrets",
+          "Namespaces",
+          "Horizontal Scaling",
+          "Helm",
+        ],
+        details: {
+          overview:
+            "Kubernetes automates the deployment, scaling, and management of containerized applications. It provides features such as rolling updates, service discovery, self-healing, and load balancing for distributed systems.",
+          timeComplexity:
+            "O(1) to O(n) for scheduling and scaling based on cluster size and pod requirements.",
+          spaceComplexity:
+            "Depends on node configurations and volume storage used by pods.",
+          keyTechniques: [
+            {
+              name: "Pods & Deployments",
+              explanation:
+                "A Pod is the smallest unit in Kubernetes that encapsulates one or more containers. Deployments manage replica sets and ensure the desired number of pods are running.",
+              codeExample: `# deployment.yaml
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: my-app
+      spec:
+        replicas: 3
+        selector:
+          matchLabels:
+            app: my-app
+        template:
+          metadata:
+            labels:
+              app: my-app
+          spec:
+            containers:
+            - name: app
+              image: my-app:latest
+              ports:
+              - containerPort: 8080`,
+              useCases: [
+                {
+                  useCase: "Run scalable applications",
+                  link: "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+                },
+                {
+                  useCase: "Rolling updates and rollbacks",
+                  link: "https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/",
+                },
+                {
+                  useCase: "Manage application versions",
+                  link: "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment",
+                },
+              ],
+            },
+            {
+              name: "Services & Load Balancing",
+              explanation:
+                "Services expose pods to external or internal traffic. They ensure reliable communication using labels and selectors.",
+              codeExample: `# service.yaml
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: my-service
+      spec:
+        selector:
+          app: my-app
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 8080
+        type: LoadBalancer`,
+              useCases: [
+                {
+                  useCase: "Expose applications to the internet",
+                  link: "https://kubernetes.io/docs/concepts/services-networking/service/",
+                },
+                {
+                  useCase: "Service discovery within the cluster",
+                  link: "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/",
+                },
+                {
+                  useCase: "Load balancing traffic to pods",
+                  link: "https://kubernetes.io/docs/concepts/services-networking/#loadbalancer",
+                },
+              ],
+            },
+            {
+              name: "ConfigMaps & Secrets",
+              explanation:
+                "ConfigMaps and Secrets provide configuration and sensitive data to applications without hardcoding them into images.",
+              codeExample: `# configmap.yaml
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: app-config
+      data:
+        LOG_LEVEL: debug
+      
+      # secret.yaml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: db-secret
+      type: Opaque
+      data:
+        password: cGFzc3dvcmQ=  # base64 encoded`,
+              useCases: [
+                {
+                  useCase: "Inject config into containers",
+                  link: "https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/",
+                },
+                {
+                  useCase: "Handle credentials securely",
+                  link: "https://kubernetes.io/docs/concepts/configuration/secret/",
+                },
+                {
+                  useCase: "Decouple environment-specific settings",
+                  link: "https://kubernetes.io/docs/concepts/configuration/overview/",
+                },
+              ],
+            },
+          ],
+          commonProblems: [
+            {
+              name: "CrashLoopBackOff debugging",
+              link: "https://kubernetes.io/docs/tasks/debug/debug-application/debug-crash/",
+            },
+            {
+              name: "Expose service via Ingress",
+              link: "https://kubernetes.io/docs/concepts/services-networking/ingress/",
+            },
+            {
+              name: "Horizontal Pod Autoscaler",
+              link: "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+            },
+          ],
+        },
+      },
+    ],
+  },
 };
 
 export default function ProjectsDetail() {
   const [, setLocation] = useLocation();
   const [selectedCategory, setSelectedCategory] =
-    useState<keyof typeof projectCategories>("system-design");
+    useState<keyof typeof projectCategories>("dsa");
   const [selectedConcept, setSelectedConcept] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

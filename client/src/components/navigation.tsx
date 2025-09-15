@@ -30,7 +30,7 @@ export default function Navigation() {
     // { label: "About", id: "about" },
     { label: "Projects", id: "projects" },
     { label: "Resume", id: "resume" },
-    { label: "Forge", id: "forge" },
+    { label: "Skills", id: "forge" },
     { label: "Contact", id: "contact" },
   ];
 

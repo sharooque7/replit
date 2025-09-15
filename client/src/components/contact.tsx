@@ -46,6 +46,7 @@ export default function Contact() {
 
       toast({
         title: "Message Sent!",
+        // description: "Thank you for your message! I'll get back to you soon.",
         description: "Thank you for your message! I'll get back to you soon.",
       });
 
