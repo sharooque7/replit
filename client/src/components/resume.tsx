@@ -7,7 +7,7 @@ export default function Resume() {
 
   const handleDownloadResume = () => {
     const url =
-      "https://drive.google.com/file/d/1IiM0WDbiksJ6wAqW69JvMul2RGtGbf1L/view?usp=drive_link";
+      "https://drive.google.com/file/d/1UQUyuMG_RP9zEl3h-XiYTDaRqM5M7KQ-/view?usp=drive_link";
 
     const a = document.createElement("a");
     a.href = url;
